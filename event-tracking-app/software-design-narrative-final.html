@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Event Tracking App Software Design Narrative | Lynnea Marihugh</title>
+    <meta name="description" content="Narrative for the software design and engineering enhancement: why I chose the Event Tracking App, how it improved, and what I learned.">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="side">
+        <nav class="sidebar" aria-label="Site menu">
+            <details open>
+                <summary>contents</summary>
+                <ul>
+                    <li class="group">Start here</li>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../self-assessment.html">Self-Assessment</a></li>
+                    <li><a href="../code-review.html">Code Review</a></li>
+                    <li class="group">Event Tracking App</li>
+                    <li><a href="../event-tracking-app/index.html">Overview</a></li>
+                    <li><a href="../event-tracking-app/software-design-narrative-final.html" aria-current="page">Software Design Narrative</a></li>
+                    <li><a href="../event-tracking-app/databases-narrative-final.html">Databases Narrative</a></li>
+                    <li class="group">Thermostat</li>
+                    <li><a href="../thermostat/index.html">Overview</a></li>
+                    <li><a href="../thermostat/algorithms-narrative-final.html">Algorithms Narrative</a></li>
+                </ul>
+            </details>
+        </nav>
+        <aside class="explore" aria-label="Explore this artifact">
+            <p class="explore-title">explore this artifact</p>
+            <ul>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/original" target="_blank" rel="noopener">Original code<small>As submitted in CS 360</small></a></li>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced" target="_blank" rel="noopener">Enhanced code<small>Both enhancements</small></a></li>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced/tests" target="_blank" rel="noopener">Automated tests<small>16 tests</small></a></li>
+                <li><a href="enhanced/runnable-project/CS360EventTrackingAppLynneaM%20%283%29.zip">Runnable project (zip)<small>Open in Android Studio</small></a></li>
+                <li><a href="software-design-engineering-narrative-final.docx">Software Design Narrative<small>Word document</small></a></li>
+                <li><a href="databases-narrative-final.docx">Databases Narrative<small>Word document</small></a></li>
+            </ul>
+        </aside>>
+    </div>
+
+    <main>
+        <span class="tag">Software Design and Engineering</span>
+        <h1>Event Tracking App Narrative: Software Design</h1>
+        <p class="lead">Why I chose this artifact, how the enhancement improved it, and what I learned along the way.</p>
+        <p><a href="index.html">&larr; Back to the Event Tracking App overview</a></p>
+
+        <h2>1. The artifact</h2>
+        <p>This artifact for the software design and engineering category is the Event Tracking app. It is a Java based Android app that was originally built for CS 360. The app is designed to track events and notify a user. It holds a login page, dashboard, and event editor/creator. There is additional functionality for a SMS reminder but this was not the focus of my project enhancements.</p>
+
+        <h2>2. Why it is in my portfolio and how it was improved</h2>
+        <p>This artifact is a mobile app that showcases multiple layers of software development that I created. I believe it is a very thorough presentation of my skills. In addition, there were very clear weaknesses that allowed me to prove my skill. For example, the dashboard screen was hardcoded with event slots which would not allow for scale. The changes I implemented were:</p>
+        <ul>
+            <li><strong>An Event class.</strong> I added an <code>Event</code> class to represent a single event as a structured object rather than the four array slots.</li>
+            <li><strong>A repository.</strong> I built the <code>EventRepository</code> to own all access to the database.</li>
+            <li><strong>A RecyclerView.</strong> I fixed the hardcoded dashboard screen with a RecyclerView and <code>EventAdapter</code>.</li>
+            <li><strong>Validation.</strong> I added in validation to the creation and editing of events, which exists in the <code>EventValidator</code> class.</li>
+        </ul>
+
+        <h2>3. Testing</h2>
+        <p>My feedback from the professor in Milestone Two was to expand testing, specifically with the repository operations and validation, so I wrote automated tests for both.</p>
+        <ul>
+            <li><code>EventValidatorTest</code>, JUnit, runs 10 different tests. It covers empty or blank titles, validates dates and times, checks for impossible dates such as leap years or a 24 hour time, and then empty or null inputs.</li>
+            <li><code>EventRepositoryTest</code>, runs through the emulator, 6 tests. This covers deleting events, tests users' visibility into only their events, and rejection of an event for a user that doesn't exist.</li>
+        </ul>
+        <p>To complete the testing, I moved the validation into <code>EventValidator</code> to ensure it was testable. For the repository, I needed to add a second constructor to <code>EventRepository</code> and <code>DatabaseHelper</code> so it will pass its own database. Besides the two automated tests, I ran the finished app on the emulator multiple times and tested both invalid and valid inputs, editing events, saving, etc.</p>
+
+        <h2>4. Reflection</h2>
+        <h3>What I learned</h3>
+        <p>The major thing I learned was separating issues for this project because I needed to separate things specifically for the software design and engineering side, but I used this same project for the database section. In addition to that, the <code>EventRepository</code> took away any database calls which made the Dashboard and Event screens much simpler. Writing the tests also helped me because once I set the validation and database access as separate pieces, each could be tested on its own.</p>
+
+        <h3>Challenges</h3>
+        <p>My biggest challenge was still the one I found when I did the milestone. I initially rewrote in VS instead of Android Studio so I needed to rebuild the whole project into Android Studio. However, that was not an issue for the enhancements.</p>
+
+        <h3>Feedback</h3>
+        <p>The feedback I received, that I also stated above, was that I needed to expand the testing. I did that by adding 10 validation tests and 6 repository tests.</p>
+
+        <h3>Course outcomes</h3>
+        <p>I planned this enhancement to demonstrate designing and evaluating computing solutions while managing the tradeoffs, as well as using the well founded techniques I've learned. I believe both were fully met. I moved the hardcoded array to a single event model. The RecyclerView was a design tradeoff for a more up front structure but it eliminated potential bugs. Adding in the automated tests and validations also further prove that I met these outcomes.</p>
+
+        <h2>Files</h2>
+        <ul class="links">
+            <li><a href="software-design-engineering-narrative-final.docx">Narrative (Word document)<small>Downloadable copy of this page</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/original">Original code<small>As submitted in CS 360</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced">Enhanced code<small>With Event, EventRepository, EventAdapter, EventValidator, and the RecyclerView layout</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced/tests">Automated tests<small>EventValidatorTest (10 tests) and EventRepositoryTest (6 tests)</small></a></li>
+            <li><a href="enhanced/runnable-project/CS360EventTrackingAppLynneaM%20%283%29.zip">Runnable project (zip)<small>The full Android Studio project; unzip it and open it in Android Studio to run the app</small></a></li>
+        </ul>
+    </main>
+
+    <footer>
+        Lynnea Marihugh &middot; CS 499 Capstone ePortfolio
+    </footer>
+</body>
+</html>

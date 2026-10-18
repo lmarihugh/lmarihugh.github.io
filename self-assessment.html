@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Professional Self-Assessment | Lynnea Marihugh</title>
+    <meta name="description" content="Professional self-assessment for the CS 499 Computer Science capstone ePortfolio.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="sidebar" aria-label="Site menu">
+        <details open>
+            <summary>contents</summary>
+            <ul>
+                <li class="group">Start here</li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="self-assessment.html" aria-current="page">Self-Assessment</a></li>
+                <li><a href="code-review.html">Code Review</a></li>
+                <li class="group">Event Tracking App</li>
+                <li><a href="event-tracking-app/index.html">Overview</a></li>
+                <li><a href="event-tracking-app/software-design-narrative-final.html">Software Design Narrative</a></li>
+                <li><a href="event-tracking-app/databases-narrative-final.html">Databases Narrative</a></li>
+                <li class="group">Thermostat</li>
+                <li><a href="thermostat/index.html">Overview</a></li>
+                <li><a href="thermostat/algorithms-narrative-final.html">Algorithms Narrative</a></li>
+            </ul>
+        </details>
+    </nav>
+
+    <main>
+        <span class="tag">CS 499 &middot; Capstone ePortfolio</span>
+        <h1>Professional Self-Assessment</h1>
+        <p class="lead">Lynnea Marihugh &middot; Southern New Hampshire University</p>
+
+        <p>Hi Everyone! My name is Lynnea Marihugh. I am wrapping up my Computer Science degree at Southern New Hampshire University. I decided a few years ago that I wanted to finish out my degree. My career up to that point was in SaaS, specifically Customer Success and Operations. This has really shaped how I approached the classes in my degree. Instead of viewing things from a solely technical perspective, I recognize other aspects, such as the customer experience, how the software will be supported and scaled, and what could go wrong once something is built. While I still work within that mindset, I also understand the technical and development side of things.</p>
+
+        <p>While much of my coursework has been independent, my career has not been without collaborative efforts. In my previous company, I worked with multiple teams, including the engineering team. My responsibilities included co-managing the roadmap, working together with the QA team to solve bugs, and assisting the team with testing features. Outside of work, I have incorporated collaboration into my coursework through feedback from my professors. There were also several moments where I needed to explain what a customer, who isn&rsquo;t a technical expert, needed in a requested feature, or relay their feedback to a technical audience. With the experience I&rsquo;ve gained in my coursework, I can better understand what a technical audience needs and gather those requirements from a non-technical audience. This also feeds into communicating with stakeholders. When communicating with stakeholders, it is important to provide clear evidence they can understand. For example, in my algorithms narrative, I provided screenshots of my testing but also simplified them into a table with the key data points to make it easier to read.</p>
+
+        <p>When it comes to data structures and algorithms, my thermostat enhancement showcases my skills. It shows how algorithmic thinking can be applied to imperfect data. I use this skill whenever I approach a problem, since it is important to recognize the factors beyond the code and how they work. Software engineering and databases were a major element of my enhancements for my Event Tracking App. I replaced a hardcoded dashboard with an Event class and built database access, an adapter, and a validator. This separation also put my skills to the test when it came to testing, because I had to separate several items to make automated testing possible. In addition, I kept security in mind at every step of the software development life cycle and recognized vulnerabilities throughout the code. The original Event Tracking App stored passwords as plain text. I replaced this with salted PBKDF2 hashing, which uses a random 16 byte salt per user and makes every single guess very expensive for someone trying to hack in.</p>
+
+        <h2>Artifacts Summary</h2>
+        <p>This portfolio holds two artifacts that cover the three capstone categories. Thermostat.py is focused on the Algorithms and Data Structures category. The Event Tracking App covers both Software Design and Engineering and Databases. The artifacts come together through the same process I used on each: first I analyzed the existing code, found a weakness that fit the category, reviewed possible solutions, made a choice, and then tested with evidence. The code review is the initial analysis of the three enhancements, but several changes were made after reviewing and testing, such as the hashing in the Event Tracking App, which you will read about shortly. You can review each artifact individually within this portfolio.</p>
+
+        <p><strong>Ready to see the work?</strong> Choose an artifact below to read about my enhancements, see the results, and explore the code.</p>
+
+        <ul class="links">
+            <li><a href="thermostat/index.html">Thermostat.py<small>Algorithms and Data Structures &middot; See how testing six window sizes cut wrong decisions from 1.23% to 0.35% &rarr;</small></a></li>
+            <li><a href="event-tracking-app/index.html">Event Tracking App<small>Software Design and Engineering &middot; Databases &middot; See the redesign, the 16 automated tests, and the secure password storage &rarr;</small></a></li>
+            <li><a href="code-review.html">Code Review<small>Start with the video walkthrough of all three enhancements &rarr;</small></a></li>
+        </ul>
+
+        <footer>
+            Lynnea Marihugh &middot; CS 499 Capstone ePortfolio
+        </footer>
+</body>
+</html>

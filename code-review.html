@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Code Review | Lynnea Marihugh</title>
+    <meta name="description" content="Code review video covering the existing functionality, code analysis, and planned enhancements for all three artifacts.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="sidebar" aria-label="Site menu">
+        <details open>
+            <summary>contents</summary>
+            <ul>
+                <li class="group">Start here</li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="self-assessment.html">Self-Assessment</a></li>
+                <li><a href="code-review.html" aria-current="page">Code Review</a></li>
+                <li class="group">Event Tracking App</li>
+                <li><a href="event-tracking-app/index.html">Overview</a></li>
+                <li><a href="event-tracking-app/software-design-narrative-final.html">Software Design Narrative</a></li>
+                <li><a href="event-tracking-app/databases-narrative-final.html">Databases Narrative</a></li>
+                <li class="group">Thermostat</li>
+                <li><a href="thermostat/index.html">Overview</a></li>
+                <li><a href="thermostat/algorithms-narrative-final.html">Algorithms Narrative</a></li>
+            </ul>
+        </details>
+    </nav>
+
+    <main>
+        <span class="tag">Code Review</span>
+        <h1>Code review</h1>
+        <p class="lead">A walkthrough of all three of my enhancements: the existing code, the areas I planned to improve, and the skills I set out to demonstrate.</p>
+
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; margin: 24px 0;">
+            <iframe src="https://www.youtube.com/embed/zig0HAYUpBU" title="CS 499 code review video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p><a href="https://youtu.be/zig0HAYUpBU">Watch the video on YouTube</a> if it does not play above.</p>
+
+        <h2>What the review covers</h2>
+        <ul>
+            <li><strong>Existing functionality.</strong> How the Event Tracking App and the Thermostat worked before any enhancements.</li>
+            <li><strong>Code analysis.</strong> The areas I targeted for improvement, such as structure, logic, efficiency, functionality, security, testing, and documentation.</li>
+            <li><strong>Planned enhancements.</strong> What I planned to change in each artifact and which skills and course outcomes each change would demonstrate.</li>
+        </ul>
+
+        <h2>Changes since the review</h2>
+        <p>A few details changed between the video and the finished work. This is where the final code differs from what I described:</p>
+        <ul>
+            <li><strong>Password hashing.</strong> I planned SHA-256 with a salt, and the final version uses PBKDF2 with a random salt per user, because the iteration count makes each guess harder.</li>
+            <li><strong>Database index.</strong> The final version indexes <code>events.username</code> only. The <code>users.username</code> column is already indexed because it is the primary key.</li>
+        </ul>
+
+        <h2>The artifacts</h2>
+        <ul class="links">
+            <li><a href="event-tracking-app/index.html">Event Tracking App<small>Software design and databases enhancements</small></a></li>
+            <li><a href="thermostat/index.html">Thermostat<small>Algorithms and data structures enhancement</small></a></li>
+        </ul>
+    </main>
+
+    <footer>
+        Lynnea Marihugh &middot; CS 499 Capstone ePortfolio
+    </footer>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Raspberry Pi Thermostat | Lynnea Marihugh</title>
+    <meta name="description" content="Algorithms and data structures enhancement: smoothing noisy temperature readings with a rolling window.">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="side">
+        <nav class="sidebar" aria-label="Site menu">
+            <details open>
+                <summary>contents</summary>
+                <ul>
+                    <li class="group">Start here</li>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../self-assessment.html">Self-Assessment</a></li>
+                    <li><a href="../code-review.html">Code Review</a></li>
+                    <li class="group">Event Tracking App</li>
+                    <li><a href="../event-tracking-app/index.html">Overview</a></li>
+                    <li><a href="../event-tracking-app/software-design-narrative-final.html">Software Design Narrative</a></li>
+                    <li><a href="../event-tracking-app/databases-narrative-final.html">Databases Narrative</a></li>
+                    <li class="group">Thermostat</li>
+                    <li><a href="../thermostat/index.html" aria-current="page">Overview</a></li>
+                    <li><a href="../thermostat/algorithms.html">Algorithms Narrative</a></li>
+                </ul>
+            </details>
+        </nav>
+        <aside class="explore" aria-label="Explore this artifact">
+            <p class="explore-title">explore this artifact</p>
+            <ul>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/original/Thermostat.py" target="_blank" rel="noopener">Original Thermostat.py<small>As submitted in CS 350</small></a></li>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/enhanced/Thermostat.py" target="_blank" rel="noopener">Enhanced Thermostat.py<small>Rolling window of 7 and error handling</small></a></li>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/enhanced/window_size_simulation.py" target="_blank" rel="noopener">Window size simulation<small>Compares window sizes from 1 to 15</small></a></li>
+                <li><a href="algorithms-narrative-final.docx">Algorithms Narrative<small>Word document</small></a></li>
+            </ul>
+        </aside>
+    </div>
+
+    <main>
+        <span class="tag">Algorithms and Data Structures</span>
+        <h1>Raspberry Pi Smart Thermostat</h1>
+        <p class="lead">A Python state machine for a Raspberry Pi that heats and cools based on a temperature sensor, built in CS 350 and enhanced to handle noisy sensor data.</p>
+
+        <p>The thermostat has three states (off, heat, cool) that a physical button cycles through. Red and blue LEDs show heating and cooling activity, an LCD shows the temperature and set point, and a background thread reports status over a serial connection. The enhancement focused on one weakness: the original compared a single raw sensor reading to the set point, so one noisy reading could flip the lights even when the room had not changed.</p>
+
+        <h2>Before and after</h2>
+        <div class="compare">
+            <div class="card">
+                <h3>Original</h3>
+                <ul>
+                    <li>One raw reading compared directly to the set point</li>
+                    <li>No averaging or smoothing</li>
+                    <li>Sensor and serial failures could crash the display thread</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Enhanced</h3>
+                <ul>
+                    <li><code>TemperatureBuffer</code>: a fixed-size rolling window of 7 readings</li>
+                    <li>Lights decided from the smoothed average</li>
+                    <li><code>try/except</code> around the sensor read and serial write, with fallbacks</li>
+                    <li>Window size chosen using a simulated noise comparison</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="callout">
+            <strong>Key result:</strong> in simulation, wrong light decisions near the set point fell from about 16% with a single reading to about 0.35% with a 7-reading window, for roughly one extra second of response lag compared to a window of 5. The simulation assumes 0.5&deg;F of sensor noise; it is not a measurement from the physical sensor.
+        </div>
+
+        <h2>Explore this artifact</h2>
+        <ul class="links">
+            <li><a href="algorithms-narrative-final.html">Full narrative and simulation results<small>Why I chose it, how it improved, what I learned, and outcome coverage</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/original/Thermostat.py">Original code<small>Thermostat.py as submitted in CS 350</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/enhanced/Thermostat.py">Enhanced code<small>Thermostat.py with TemperatureBuffer and error handling</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/enhanced/window_size_simulation.py">Window size simulation<small>The script that compares rolling-window sizes</small></a></li>
+            <li><a href="narrative-algorithms.docx">Narrative (Word document)<small>Downloadable copy</small></a></li>
+        </ul>
+    </main>
+
+    <footer>
+        Lynnea Marihugh &middot; CS 499 Capstone ePortfolio
+    </footer>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thermostat Narrative | Lynnea Marihugh</title>
+    <meta name="description" content="Narrative for the algorithms and data structures enhancement: why I chose the thermostat, how it improved, and what I learned.">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="side">
+        <nav class="sidebar" aria-label="Site menu">
+            <details open>
+                <summary>contents</summary>
+                <ul>
+                    <li class="group">Start here</li>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../self-assessment.html">Self-Assessment</a></li>
+                    <li><a href="../code-review.html">Code Review</a></li>
+                    <li class="group">Event Tracking App</li>
+                    <li><a href="../event-tracking-app/index.html">Overview</a></li>
+                    <li><a href="../event-tracking-app/software-design-narrative-final.html">Software Design Narrative</a></li>
+                    <li><a href="../event-tracking-app/databases-narrative-final.html">Databases Narrative</a></li>
+                    <li class="group">Thermostat</li>
+                    <li><a href="../thermostat/index.html">Overview</a></li>
+                    <li><a href="../thermostat/algorithms-narrative-final.html" aria-current="page">Algorithms Narrative</a></li>
+                </ul>
+            </details>
+        </nav>
+        <aside class="explore" aria-label="Explore this artifact">
+            <p class="explore-title">explore this artifact</p>
+            <ul>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/original/Thermostat.py" target="_blank" rel="noopener">Original Thermostat.py<small>As submitted in CS 350</small></a></li>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/enhanced/Thermostat.py" target="_blank" rel="noopener">Enhanced Thermostat.py<small>Rolling window of 7 and error handling</small></a></li>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/enhanced/window_size_simulation.py" target="_blank" rel="noopener">Window size simulation<small>Compares window sizes from 1 to 15</small></a></li>
+                <li><a href="algorithms-narrative-final.docx">Algorithms Narrative<small>Word document</small></a></li>
+            </ul>
+        </aside>
+    </div>
+
+    <main>
+        <span class="tag">Algorithms and Data Structures</span>
+        <h1>Thermostat narrative</h1>
+        <p class="lead">Why I chose this artifact, how the enhancement improved it, and what I learned along the way.</p>
+        <p><a href="index.html">&larr; Back to the Thermostat overview</a></p>
+
+        <h2>1. The artifact</h2>
+        <p>This artifact is a smart thermostat that runs on a Raspberry Pi. It was written in Python for CS 350. It is a state machine with three states: off, heat, and cool. It is cycled by three physical buttons: a blue one to lower the temperature, a red one to raise the temperature, and an orange one to cycle through the states. A red LED and a blue LED show heating and cooling activity. An LCD shows the temperature and set point. A background thread also sends the status over a serial connection every 30 seconds.</p>
+
+        <h2>2. Why it is in my portfolio and how it improved</h2>
+        <p>This artifact shows algorithmic thinking applied to real data that may not be perfect. The original <code>updateLights()</code> compared a single raw sensor reading to the set point, which could cause a single noisy reading to flip the lights regardless of whether the room temperature had changed. The skills I demonstrated in the changes below were choosing a bounded data structure to fix a problem, analyzing its cost, handling errors in code that talks to hardware, and testing with evidence instead of assuming. The two changes I implemented were:</p>
+        <ul>
+            <li><strong>A rolling-window data structure.</strong> I added a <code>TemperatureBuffer</code> class that stores the most recent readings in a fixed-size window and returns their average. Because the window is small and fixed, adding a reading and averaging it are cheap in both time and memory.</li>
+            <li><strong>Error handling.</strong> I wrapped the sensor read and serial write in <code>try/except</code>. If the sensor read fails, the code falls back to the last smoothed value. If there is no smoothed value yet, it falls back to the set point instead.</li>
+        </ul>
+
+        <h2>3. Testing the window size</h2>
+        <p>In my feedback on Milestone Three, my professor recommended testing several window sizes with simulated noisy readings, which is exactly what I did. I wrote a simulation (<code>window_size_simulation.py</code>) that follows the thermostat's read schedule. I used six readings per 10-second cycle, with the lights chosen once per cycle. It models a room held at 72.5&deg;F with a 72&deg;F set point, so the floored reading sits just above the line where noise could trip it. The simulated sensor noise is 0.5&deg;F, and in the spike case 2% of the readings are off by 4&deg;F. It is worth noting that all these numbers are assumptions, not direct measurements. In the table below you can see the simulation results. "Wrong Decisions" is how often the light decision was wrong, and "Lag" is the average time to respond to a real change. .</p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Window</th>
+                        <th>Wrong decisions</th>
+                        <th>Lag (s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>16.06%</td><td>4.5</td></tr>
+                    <tr><td>3</td><td>3.98%</td><td>9.5</td></tr>
+                    <tr><td>5</td><td>1.23%</td><td>10.4</td></tr>
+                    <tr class="highlight"><td>7 (chosen)</td><td>0.35%</td><td>11.5</td></tr>
+                    <tr><td>10</td><td>0.07%</td><td>13.0</td></tr>
+                    <tr><td>15</td><td>0.01%</td><td>18.9</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <figure>
+            <img src="images/simulation-results.png" alt="Command Prompt output of window_size_simulation.py showing wrong-decision and lag results for window sizes 1 to 15">
+            <figcaption>Full output from running <code>window_size_simulation.py</code> myself. </figcaption>
+        </figure>
+        <div class="callout">
+            As the table shows, any window helps a lot, and a larger window reduces errors significantly, but at the cost of a slower response. The results of this test made me change the window from the default of 5 to 7, which cut wrong decisions from 1.23% to 0.35% for about one extra second of lag.
+        </div>
+
+        <p>Besides the test above, I also checked the finished code's logic with automated checks against simulated hardware. The window never exceeded 7 readings, a failed sensor read falls back correctly, and the red light pulses or stays solid at the proper times in heat mode. As a note, I only tested with simulators, and did not test on the physical Raspberry Pi.</p>
+
+        <h2>4. Reflection</h2>
+        <h3>What I learned</h3>
+        <p>This test taught me that design choices must be backed by real evidence, and that even simulated evidence is better than none. The original choice of five, which was selected by default in the CS 350 course, was reasonable. However, seven, or even ten, reduces the errors further while adding only a few seconds of lag. This is where trade-offs come into play between design, functionality, and user experience.</p>
+        <p>When building the simulation, I needed to read the code very closely to make sure I didn't miss anything, and I did miss something. The buffer gets fed every single time <code>getFahrenheit()</code> is called, which means a window of seven covers about one 10-second cycle, not seven separate moments. This is something I would have missed without simulating the read schedule.</p>
+
+        <h3>Challenges</h3>
+        <p>The hardest part for me was testing code that depends on hardware. As I mentioned in my milestone narrative, I had packed everything away and was unable to access it for this class. I used simulators and built code around them to test the logic, though not the wiring.</p>
+
+        <h3>Feedback</h3>
+        <p>The feedback I received from my professor was to test the multiple window sizes with simulate noisy readings to justify my choice. I did do that and it ended up changing my design from 5 to 7.</p>
+
+        <h3>Course outcomes</h3>
+        <p>I believe I fully met the course outcomes on designing and evaluating solutions while managing the tradeoffs. This was showcased when it came to trading off more reliable windows for a few seconds more lag time. I would say I mostly met the well-founded techniques and tools throughout the testing, minus the hardware side. The error handling supports the security mindset outcome. </p>
+        <h2>Files</h2>
+        <ul class="links">
+            <li><a href="algorithms-narrative-final.docx">Narrative (Word document)<small>Downloadable copy of this page</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/original/Thermostat.py">Original Thermostat.py<small>As submitted in CS 350</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/enhanced/Thermostat.py">Enhanced Thermostat.py<small>With TemperatureBuffer, a 7-reading window, and error handling</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/blob/main/thermostat/enhanced/window_size_simulation.py">Window size simulation<small>Compares window sizes from 1 to 15 readings</small></a></li>
+        </ul>
+    </main>
+
+    <footer>
+        Lynnea Marihugh &middot; CS 499 Capstone ePortfolio
+    </footer>
+</body>
+</html>

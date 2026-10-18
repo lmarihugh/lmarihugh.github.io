@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Event Tracking App | Lynnea Marihugh</title>
+    <meta name="description" content="Overview of the Event Tracking App, one Android app used for both the software design and the databases enhancements.">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="side">
+        <nav class="sidebar" aria-label="Site menu">
+            <details open>
+                <summary>contents</summary>
+                <ul>
+                    <li class="group">Start here</li>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../self-assessment.html">Self-Assessment</a></li>
+                    <li><a href="../code-review.html">Code Review</a></li>
+                    <li class="group">Event Tracking App</li>
+                    <li><a href="../event-tracking-app/index.html" aria-current="page">Overview</a></li>
+                    <li><a href="../event-tracking-app/software-design-narrative-final.html">Software Design Narrative</a></li>
+                    <li><a href="../event-tracking-app/databases-narrative-final.html">Databases Narrative</a></li>
+                    <li class="group">Thermostat</li>
+                    <li><a href="../thermostat/index.html">Overview</a></li>
+                    <li><a href="../thermostat/algorithms-narrative-final.html">Algorithms Narrative</a></li>
+                </ul>
+            </details>
+        </nav>
+        <aside class="explore" aria-label="Explore this artifact">
+            <p class="explore-title">explore this artifact</p>
+            <ul>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/original" target="_blank" rel="noopener">Original code<small>As submitted in CS 360</small></a></li>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced" target="_blank" rel="noopener">Enhanced code<small>Both enhancements</small></a></li>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced/tests" target="_blank" rel="noopener">Automated tests<small>16 tests</small></a></li>
+                <li><a href="enhanced/runnable-project/CS360EventTrackingAppLynneaM%20%283%29.zip">Runnable project (zip)<small>Open in Android Studio</small></a></li>
+                <li><a href="software-design-engineering-narrative-final.docx">Software Design Narrative<small>Word document</small></a></li>
+                <li><a href="databases-narrative-final.docx">Databases Narrative<small>Word document</small></a></li>
+            </ul>
+        </aside>
+    </div>
+
+    <main>
+        <span class="tag">One app &middot; Two enhancements</span>
+        <h1>Event Tracking App</h1>
+        <p class="lead">A Java based Android app for tracking events, originally built for CS 360. I used this one app for two of the three capstone categories: software design and engineering, and databases.</p>
+
+        <p>The app has a login page, a dashboard, and an event editor. There is also an SMS reminder for an event if the user wants. I enhanced the same code base twice, first for software design (Milestone Two) and then for databases (Milestone Four), so the enhanced code and the tests include both sets of changes.</p>
+
+        <h2>The two enhancements</h2>
+        <div class="compare">
+            <div class="card">
+                <h3>Software design and engineering</h3>
+                <p><small>Milestone Two</small></p>
+                <p><strong>Before:</strong> The dashboard was hardcoded with event slots, which would not allow for scale.</p>
+                <p><strong>After:</strong> An <code>Event</code> class, an <code>EventRepository</code> that owns all database access, a RecyclerView with an <code>EventAdapter</code>, and input validation in <code>EventValidator</code>. Backed by 16 automated tests.</p>
+                <p><a href="software-design-narrative-final.html">View more information &rarr;</a></p>
+            </div>
+            <div class="card">
+                <h3>Databases</h3>
+                <p><small>Milestone Four</small></p>
+                <p><strong>Before:</strong> Passwords were stored as plain text, and events were not tied to users by a foreign key.</p>
+                <p><strong>After:</strong> Salted PBKDF2 password hashing, a foreign key from events to users with cascade delete, an index on <code>events.username</code>, and a version 2 database migration.</p>
+                <p><a href="databases-narrative-final.html">View more information &rarr;</a></p>
+            </div>
+        </div>
+
+        <div class="callout">
+            <strong>Key result:</strong> The dashboard is no longer built on fixed event slots, and passwords are no longer stored as plain text.
+        </div>
+
+        <h2>Explore this artifact</h2>
+        <ul class="links">
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/original">Original code<small>As submitted in CS 360</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced">Enhanced code<small>Includes both the software design and the database enhancements</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced/tests">Automated tests<small>EventValidatorTest (10 tests) and EventRepositoryTest (6 tests)</small></a></li>
+            <li><a href="enhanced/runnable-project/CS360EventTrackingAppLynneaM%20%283%29.zip">Runnable project (zip)<small>The full Android Studio project; unzip it and open it in Android Studio to run the app</small></a></li>
+        </ul>
+    </main>
+
+    <footer>
+        Lynnea Marihugh &middot; CS 499 Capstone ePortfolio
+    </footer>
+</body>
+</html>

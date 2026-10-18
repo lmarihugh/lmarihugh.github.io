@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Event Tracking App Databases Narrative | Lynnea Marihugh</title>
+    <meta name="description" content="Narrative for the databases enhancement: why I chose the Event Tracking App, how the database and password storage improved, and what I learned.">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="side">
+        <nav class="sidebar" aria-label="Site menu">
+            <details open>
+                <summary>contents</summary>
+                <ul>
+                    <li class="group">Start here</li>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../self-assessment.html">Self-Assessment</a></li>
+                    <li><a href="../code-review.html">Code Review</a></li>
+                    <li class="group">Event Tracking App</li>
+                    <li><a href="../event-tracking-app/index.html">Overview</a></li>
+                    <li><a href="../event-tracking-app/software-design-narrative-final.html">Software Design Narrative</a></li>
+                    <li><a href="../event-tracking-app/databases-narrative-final.html" aria-current="page">Databases Narrative</a></li>
+                    <li class="group">Thermostat</li>
+                    <li><a href="../thermostat/index.html">Overview</a></li>
+                    <li><a href="../thermostat/algorithms-narrative-final.html">Algorithms Narrative</a></li>
+                </ul>
+            </details>
+        </nav>
+        <aside class="explore" aria-label="Explore this artifact">
+            <p class="explore-title">explore this artifact</p>
+            <ul>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/original" target="_blank" rel="noopener">Original code<small>As submitted in CS 360</small></a></li>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced" target="_blank" rel="noopener">Enhanced code<small>Both enhancements</small></a></li>
+                <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced/tests" target="_blank" rel="noopener">Automated tests<small>16 tests</small></a></li>
+                <li><a href="enhanced/runnable-project/CS360EventTrackingAppLynneaM%20%283%29.zip">Runnable project (zip)<small>Open in Android Studio</small></a></li>
+                <li><a href="software-design-engineering-narrative-final.docx">Software Design Narrative<small>Word document</small></a></li>
+                <li><a href="databases-narrative-final.docx">Databases Narrative<small>Word document</small></a></li>
+            </ul>
+        </aside>
+    </div>
+
+    <main>
+        <span class="tag">Databases</span>
+        <h1>Event Tracking App Narrative: Databases</h1>
+        <p class="lead">Why I chose this artifact, how the enhancement improved it, and what I learned along the way.</p>
+        <p><a href="index.html">&larr; Back to the Event Tracking App overview</a></p>
+
+        <h2>1. The artifact</h2>
+        <p>This artifact for the databases category is the Event Tracking app. It is a Java based Android app that was originally built for CS 360. The app is designed to track events and notify a user. It holds a login page, dashboard, and event editor/creator. There is additional functionality for a SMS reminder but this was not the focus of my project enhancements.</p>
+
+        <h2>2. Why it is in my portfolio and how it was improved</h2>
+        <p>The Event Tracking app belongs in my ePortfolio because the original database was very basic and had minimal security, therefore had many opportunities for improvement. It allowed me to evaluate a system already working and then fix it. The changes I made were:</p>
+        <ul>
+            <li><strong>Salted password hashing.</strong> This changed the original storage of passwords from plain text to a random 16 byte salt per user and then hashed the password.</li>
+            <li><strong>PBKDF2.</strong> Originally I planned on doing SHA-256 but swapped to PBKDF2 because it made each guess harder.</li>
+            <li><strong>A foreign key.</strong> I changed <code>events.username</code> to be a foreign key to <code>users.username</code>, so an event won't be able to exist for a user who isn't there, and deleting a user deletes their events too.</li>
+            <li><strong>An index.</strong> I added an index to <code>events.username</code>.</li>
+        </ul>
+
+        <h2>3. Testing</h2>
+        <p>My feedback from Milestone Four was that the narrative needed more detail on the challenges during testing, so here are more details. The first time I ran the version 2 app, it crashed, so I used the Logcat tool within Android Studio to read the exception. The failures were emulator install errors, which didn't have anything to do with the code. I was able to fix these, and some had to do with the project structure, but it was very helpful to have tools like Logcat to help identify them.</p>
+        <p>In addition to the above, while finishing the final version, I did find a bug within my code. The migration hashed every existing user's password, while PBKDF2 refused to hash an empty password, so the app crashed during the upgrade whenever an empty one appeared. Logcat also showed this exception, and I figured out that it was coming from the migration. I fixed it by adding a fixed prefix to every password before it is hashed, to make sure the input was not empty.</p>
+        <p>I also ran 6 automated repository tests that covered the database rules, to ensure users only see their own events, deleting a user also deletes their events, and so on.</p>
+
+        <h2>4. Reflection</h2>
+        <h3>What I learned</h3>
+        <p>Overall, I did pretty well with the building, but the testing did teach me that a crash is not always a code issue. Utilizing the tools within the environment you are using can be very helpful and leave you working efficiently rather than reading lines and lines of code or guessing.</p>
+
+        <h3>Challenges</h3>
+        <p>Separating the two testing errors and trying to figure out why something was happening was super challenging for me. It took me an embarrassing amount of time trying to figure out Logcat.</p>
+
+        <h3>Feedback</h3>
+        <p>The feedback I received initially was to add more detail to my testing notes and explain further.</p>
+
+        <h3>Course outcomes</h3>
+        <p>Using well founded techniques and tools to deliver value was one I believe I succeeded in by applying standard database practices and using Logcat. I also met Outcome 5, the security mindset, because I was focused on updating the plain text credentials to fix a true vulnerability. Outcomes 1 and 2 were not the focus here and Outcome 3 was covered by my other enhancements.</p>
+
+        <h2>Files</h2>
+        <ul class="links">
+            <li><a href="databases-narrative-final.docx">Narrative (Word document)<small>Downloadable copy of this page</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/original">Original code<small>As submitted in CS 360, including the original DatabaseHelper</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced">Enhanced code<small>With PasswordHasher, the updated DatabaseHelper, and the version 2 migration</small></a></li>
+            <li><a href="https://github.com/lmarihugh/lmarihugh.github.io/tree/main/event-tracking-app/enhanced/tests">Automated tests<small>EventRepositoryTest covers the database rules (6 tests)</small></a></li>
+            <li><a href="enhanced/runnable-project/CS360EventTrackingAppLynneaM%20%283%29.zip">Runnable project (zip)<small>The full Android Studio project; unzip it and open it in Android Studio to run the app</small></a></li>
+        </ul>
+    </main>
+
+    <footer>
+        Lynnea Marihugh &middot; CS 499 Capstone ePortfolio
+    </footer>
+</body>
+</html>
